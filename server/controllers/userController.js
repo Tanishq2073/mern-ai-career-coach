@@ -1,21 +1,35 @@
-const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
+const {
+  validateRegisterInput,
+  validateLoginInput,
+} = require("../utils/validators");
 
-const registerUser = async (req, res) => {
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
+
+const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
-
-    // check if user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
+    const validationError = validateRegisterInput(req.body);
+    if (validationError) {
+      res.status(400);
+      throw new Error(validationError);
     }
 
-    // hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const { name, email, password } = req.body;
 
-    // create user
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      res.status(400);
+      throw new Error("User already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await User.create({
       name,
       email,
@@ -23,73 +37,105 @@ const registerUser = async (req, res) => {
     });
 
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      status: "success",
+      message: "User registered successfully",
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
-
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-
-
-const generateToken = require("../config/generateToken");
-
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   try {
+    const validationError = validateLoginInput(req.body);
+    if (validationError) {
+      res.status(400);
+      throw new Error(validationError);
+    }
+
     const { email, password } = req.body;
 
-    // find user
     const user = await User.findOne({ email });
 
-    // compare password
-    if (user && (await bcrypt.compare(password, user.password))) {
-      res.json({
+    if (!user) {
+      res.status(401);
+      throw new Error("Invalid email or password");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      res.status(401);
+      throw new Error("Invalid email or password");
+    }
+
+    res.json({
+      status: "success",
+      message: "Login successful",
+      data: {
         _id: user._id,
         name: user.name,
         email: user.email,
         token: generateToken(user._id),
-      });
-    } else {
-      res.status(401).json({ message: "Invalid email or password" });
-    }
-
+      },
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-const updateUserProfile = async (req, res) => {
+const getUserProfile = async (req, res, next) => {
   try {
-    // get logged-in user
+    res.json({
+      status: "success",
+      message: "Profile fetched successfully",
+      data: req.user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateUserProfile = async (req, res, next) => {
+  try {
     const user = await User.findById(req.user._id);
 
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
+    if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+    }
 
-      // if password is sent → hash it
-      if (req.body.password) {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(req.body.password, salt);
-      }
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
 
-      const updatedUser = await user.save();
+    if (req.body.password) {
+      user.password = await bcrypt.hash(req.body.password, 10);
+    }
 
-      res.json({
+    const updatedUser = await user.save();
+
+    res.json({
+      status: "success",
+      message: "Profile updated successfully",
+      data: {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-      });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-
+      },
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
 
-module.exports = { registerUser,loginUser,updateUserProfile, };
+module.exports = {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  updateUserProfile,
+};
