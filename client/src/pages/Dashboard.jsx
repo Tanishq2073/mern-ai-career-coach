@@ -46,14 +46,14 @@ function Dashboard() {
       const token = userInfo?.data?.token || userInfo?.token;
 
       const jobsRes = await axios.get(
-        `http://localhost:5000/api/jobs?keyword=${filters.keyword}&status=${filters.status}&sort=${filters.sort}`,
+        `https://mern-ai-career-coach.onrender.com/api/jobs?keyword=${filters.keyword}&status=${filters.status}&sort=${filters.sort}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       const statsRes = await axios.get(
-        "http://localhost:5000/api/jobs/stats",
+        "https://mern-ai-career-coach.onrender.com/api/jobs/stats",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -76,7 +76,7 @@ function Dashboard() {
 
       const token = userInfo?.data?.token || userInfo?.token;
 
-      await axios.post("http://localhost:5000/api/jobs", formData, {
+      await axios.post("https://mern-ai-career-coach.onrender.com/api/jobs", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -105,7 +105,7 @@ function Dashboard() {
 
     try {
       const token = userInfo?.data?.token || userInfo?.token;
-      await axios.delete(`http://localhost:5000/api/jobs/${id}`, {
+      await axios.delete(`https://mern-ai-career-coach.onrender.com/api/jobs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchDashboardData();
@@ -118,7 +118,7 @@ function Dashboard() {
     try {
       const token = userInfo?.data?.token || userInfo?.token;
       await axios.put(
-        `http://localhost:5000/api/jobs/${id}`,
+        `https://mern-ai-career-coach.onrender.com/api/jobs/${id}`,
         { status: newStatus },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -139,7 +139,7 @@ function Dashboard() {
       const token = userInfo?.data?.token || userInfo?.token;
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/ai/interview-questions?role=${role}`,
+        `https://mern-ai-career-coach.onrender.com/api/ai/interview-questions?role=${role}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

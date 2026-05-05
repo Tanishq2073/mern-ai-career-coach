@@ -29,7 +29,7 @@ function Profile() {
       const token = userInfo?.data?.token || userInfo?.token;
 
       await axios.put(
-        "http://localhost:5000/api/users/profile",
+        "https://mern-ai-career-coach.onrender.com/api/users/profile",
         { name, email, password },
         {
           headers: { Authorization: `Bearer ${token}` },

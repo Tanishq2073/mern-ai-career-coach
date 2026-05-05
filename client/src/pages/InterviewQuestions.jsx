@@ -19,7 +19,7 @@ const InterviewQuestions = () => {
       const token = userInfo?.data?.token || userInfo?.token;
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/ai/interview-questions?role=${role}`,
+        `https://mern-ai-career-coach.onrender.com/api/ai/interview-questions?role=${role}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

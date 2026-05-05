@@ -19,7 +19,7 @@ const ResumeAnalyzer = () => {
       const token = userInfo?.data?.token || userInfo?.token;
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/ai/resume-analysis",
+        "https://mern-ai-career-coach.onrender.com/api/ai/resume-analysis",
         { resumeText },
         {
           headers: {
