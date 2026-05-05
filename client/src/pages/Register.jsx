@@ -18,7 +18,7 @@ function Register() {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:5000/api/users/register", {
+      await axios.post("https://mern-ai-career-coach.onrender.com/api/users/register", {
         name,
         email,
         password,

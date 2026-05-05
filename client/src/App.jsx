@@ -7,7 +7,7 @@ import Profile from "./pages/Profile";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import InterviewQuestions from "./pages/InterviewQuestions";
 
-
+<Route path="/interview" element={<InterviewQuestions />} />
 
 <Route path="/profile" element={<Profile />} />
 function App() {

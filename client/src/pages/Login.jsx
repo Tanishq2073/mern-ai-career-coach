@@ -14,7 +14,7 @@ function Login() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "https://mern-ai-career-coach.onrender.com/api/users/login",
         { email, password }
       );
 
