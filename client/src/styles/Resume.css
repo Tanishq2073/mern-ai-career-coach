@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+}
+
+.resume-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 30%),
+    #f8faff;
+  padding: 60px 20px;
+}
+
+.resume-container {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 50px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* LEFT SIDE */
+.resume-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.resume-tag {
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+
+.resume-left h1 {
+  font-size: 68px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.resume-left h1 span {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.resume-description {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #64748b;
+  max-width: 620px;
+}
+
+/* FEATURES */
+.resume-features {
+  display: flex;
+  gap: 18px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  height: 60px;
+  padding: 0 22px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #eef2ff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* RIGHT SIDE */
+.resume-card {
+  background: white;
+  border-radius: 30px;
+  padding: 40px;
+  border: 1px solid #eef2ff;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+}
+
+.resume-card h2 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  color: #64748b;
+  margin-bottom: 28px;
+}
+
+/* UPLOAD BOX */
+.upload-box {
+  height: 240px;
+  border: 2px dashed #c4b5fd;
+  border-radius: 24px;
+  background: #faf7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.upload-box:hover {
+  border-color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.upload-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+}
+
+.upload-content h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.upload-content p {
+  color: #64748b;
+}
+
+.uploaded-file {
+  display: inline-block;
+  margin-top: 14px;
+  background: #ede9fe;
+  color: #6d28d9;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 28px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.divider span {
+  padding: 0 14px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* TEXTAREA */
+.resume-card textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 1px solid #dbe4f0;
+  border-radius: 18px;
+  padding: 18px;
+  resize: none;
+  font-size: 15px;
+  outline: none;
+}
+
+.resume-card textarea:focus {
+  border-color: #7c3aed;
+}
+
+/* BUTTON */
+.analyze-btn {
+  width: 100%;
+  height: 58px;
+  margin-top: 24px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.analyze-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* RESULTS */
+.analysis-result {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 20px;
+  background: #f8faff;
+  border: 1px solid #e2e8f0;
+}
+
+.analysis-result h3 {
+  font-size: 24px;
+  margin-bottom: 14px;
+  color: #111827;
+}
+
+.analysis-result p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.coming-soon-box {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #ede9fe;
+}
+
+.coming-soon-box h4 {
+  margin-bottom: 12px;
+  color: #6d28d9;
+}
+
+.coming-soon-box ul {
+  padding-left: 18px;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.coming-soon-box li {
+  font-size: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .resume-container {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-left h1 {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 768px) {
+  .resume-left h1 {
+    font-size: 42px;
+  }
+
+  .resume-card {
+    padding: 28px;
+  }
+
+  .upload-box {
+    height: 200px;
+  }
+}

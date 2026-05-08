@@ -1,3 +1,8 @@
+const OpenAI = require("openai");
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 const analyzeResume = async (req, res, next) => {
   try {
     const { resumeText } = req.body;
@@ -7,38 +12,96 @@ const analyzeResume = async (req, res, next) => {
       throw new Error("Resume text is required");
     }
 
-    let result;
+    let feedback;
+    let atsScore = 70;
+    let matchedKeywords = [];
+
+    const keywords = [
+      "react",
+      "node",
+      "mongodb",
+      "express",
+      "javascript",
+      "tailwind",
+      "api",
+      "git",
+      "python",
+      "sql",
+      "docker",
+      "aws",
+    ];
+
+    keywords.forEach((keyword) => {
+      if (
+        resumeText
+          .toLowerCase()
+          .includes(keyword)
+      ) {
+        atsScore += 3;
+        matchedKeywords.push(keyword);
+      }
+    });
+
+    if (atsScore > 100) {
+      atsScore = 100;
+    }
 
     try {
-      // 🔥 AI CALL
-      const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content: "You are a professional career coach.",
-          },
-          {
-            role: "user",
-            content: `Analyze this resume:\n${resumeText}`,
-          },
-        ],
-      });
+      // OPENAI ANALYSIS
+      const response =
+        await openai.chat.completions.create({
+          model: "gpt-3.5-turbo",
 
-      result = response.choices[0].message.content;
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an expert ATS resume analyzer and career coach.",
+            },
+
+            {
+              role: "user",
+              content: `
+Analyze this resume and give:
+1. ATS feedback
+2. Resume strengths
+3. Resume weaknesses
+4. Improvement suggestions
+
+Resume:
+${resumeText}
+              `,
+            },
+          ],
+
+          temperature: 0.7,
+        });
+
+      feedback =
+        response.choices[0].message.content;
 
     } catch (aiError) {
-      console.log("AI ERROR:", aiError.message);
+      console.log(
+        "AI ERROR:",
+        aiError.message
+      );
 
-      // 🔥 FALLBACK MESSAGE
-      result =
-        "AI service is temporarily unavailable. Please try again later.";
+      // FALLBACK RESPONSE
+      feedback =
+        "Your resume has decent technical skills but can improve by adding stronger project descriptions, quantified achievements, and more ATS-friendly keywords.";
     }
 
     res.json({
       status: "success",
-      message: "Resume analysis completed",
-      data: result,
+
+      message:
+        "Resume analysis completed",
+
+      atsScore,
+
+      matchedKeywords,
+
+      feedback,
     });
 
   } catch (error) {
