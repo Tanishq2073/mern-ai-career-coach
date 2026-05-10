@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
 import "../styles/Dashboard.css";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Components/Navbar";
 
 function Dashboard() {
   const navigate = useNavigate();
