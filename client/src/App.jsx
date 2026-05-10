@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "../pages/Login";
+import Login from "./pages/login";
 import Register from "./pages/Register";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import InterviewQuestions from "./pages/InterviewQuestions";
