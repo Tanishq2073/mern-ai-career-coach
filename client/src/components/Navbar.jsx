@@ -9,26 +9,7 @@ function Navbar() {
     navigate("/");
   };
 
-  return (
-    <nav className="navbar">
-      <div className="container navbar-content">
-        <Link to="/" className="logo">
-          AI Career Coach
-        </Link>
-
-        <div className="nav-links">
-          {userInfo ? (
-  <>
-    <Link to="/dashboard">Dashboard</Link>
-    <button className="btn btn-danger" onClick={logoutHandler}>
-      Logout
-    </button>
-  </>
-) : null}
-        </div>
-      </div>
-    </nav>
-  );
+  return null;
 }
 
 export default Navbar;

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
 import "../styles/Dashboard.css";
+import Navbar from "../Components/Navbar";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -153,9 +154,13 @@ function Dashboard() {
   };
 
   const logoutHandler = () => {
-    localStorage.clear();
-    navigate("/");
-  };
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("token");
+
+  navigate("/");
+
+  window.location.reload();
+};
 
   const userName = userInfo?.name || userInfo?.data?.name || "User";
   const userEmail = userInfo?.email || userInfo?.data?.email || "user@email.com";
@@ -167,6 +172,8 @@ function Dashboard() {
     offer: stats?.offer || 0,
     rejected: stats?.rejected || 0,
   };
+
+  
 
   const careerInsight = useMemo(() => {
     if (safeStats.totalJobs === 0) {

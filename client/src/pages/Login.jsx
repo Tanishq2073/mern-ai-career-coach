@@ -8,22 +8,39 @@ function Login() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setMessage("");
+ const submitHandler = async (e) => {
+  e.preventDefault();
+  setMessage("");
 
-    try {
-      const { data } = await axios.post(
-        "https://mern-ai-career-coach.onrender.com/api/users/login",
-        { email, password }
-      );
+  try {
+    const { data } = await axios.post(
+      "https://mern-ai-career-coach.onrender.com/api/users/Login",
+      {
+        email,
+        password,
+      }
+    );
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
+    console.log("LOGIN RESPONSE:", data);
+
+    // Store user info
+    localStorage.setItem("userInfo", JSON.stringify(data));
+
+    // Navigate directly if token exists
+    if (data.token || data?.data?.token) {
       navigate("/dashboard");
-    } catch (error) {
-      setMessage(error.response?.data?.message || "Login failed");
+      window.location.reload();
+    } else {
+      setMessage("Login failed");
     }
-  };
+  } catch (error) {
+    console.log(error);
+
+    setMessage(
+      error.response?.data?.message || "Login failed. Please try again."
+    );
+  }
+};
 
   return (
     <div className="form-container card">
