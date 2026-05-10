@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import API from "../api";
 import "../styles/Dashboard.css";
 
-
 function Dashboard() {
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
