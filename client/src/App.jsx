@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "../pages/Dashboard";
-import Navbar from "../Components/Navbar";
 import Profile from "./pages/Profile";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import InterviewQuestions from "./pages/InterviewQuestions";
