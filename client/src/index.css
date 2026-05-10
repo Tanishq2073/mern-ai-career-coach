@@ -46,13 +46,16 @@ a {
 }
 
 .btn {
-  background: #2563eb;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 18px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 .btn:hover {
@@ -79,14 +82,21 @@ a {
 }
 
 .form-container {
-  max-width: 420px;
-  margin: 40px auto;
+  width: 100%;
+  max-width: 650px;
+  margin: 80px auto;
+  padding: 60px;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
 }
 
 .form-title {
-  margin-bottom: 20px;
+  margin-bottom: 45px;
   text-align: center;
-  font-size: 28px;
+  font-size: 58px;
+  font-weight: 800;
+  color: #111827;
 }
 
 .form-group {
@@ -95,20 +105,25 @@ a {
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #111827;
 }
 
 .form-group input {
   width: 100%;
-  padding: 12px;
+  padding: 20px;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 14px;
   outline: none;
+  font-size: 18px;
+  transition: 0.3s;
 }
 
 .form-group input:focus {
   border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
 
 .form-footer {
